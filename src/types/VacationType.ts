@@ -12,13 +12,7 @@ export const VACATION_TYPE = [
   // 위로
   "comfort",
 ] as const;
-export const VACATION_TYPE_IN_KOREAN = {
-  regular: "성과제",
-  annual: "연가",
-  reward: "포상",
-  emergency: "청원",
-  comfort: "위로",
-};
+
 export type VacationTypeKey = (typeof VACATION_TYPE)[number];
 
 export type VacationList = {
