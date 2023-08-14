@@ -1,0 +1,12 @@
+.optionLabel {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+
+  .indicator {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+}

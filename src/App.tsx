@@ -4,16 +4,22 @@ import moment from "moment";
 import "./App.css";
 import ROKAFCalendar from "./components/ROKAFCalendar";
 import RegularVacationRadioButton from "./components/RegularVacationRadioButton";
-import { RegularVacationKey } from "./types";
+import { RegularVacationKey, VacationTypeKey } from "./types";
+import VacationRadioButton from "./components/VacationRadioButton";
 
 export default function App() {
   const [regularVacation, setRegularVacataion] =
     useState<RegularVacationKey>("6weeks");
+  const [vacationType, setVacationType] = useState<VacationTypeKey>("regular");
   return (
     <div className="App">
       <RegularVacationRadioButton
         regularVacation={regularVacation}
         setRegularVacation={setRegularVacataion}
+      />
+      <VacationRadioButton
+        vacationType={vacationType}
+        setVacationType={setVacationType}
       />
       <div /* className={styles.header} */>
         <input />
