@@ -1,26 +1,26 @@
 import type { Dayjs } from "Dayjs";
 
-export const VACATIONS = {
+export const VACATION_TYPE = [
   // 성과제 외박
-  regular: 0,
+  "regular",
   // 연가
-  annual: 1,
+  "annual",
   // 포상
-  reward: 2,
+  "reward",
   // 청원
-  emergency: 3,
+  "emergency",
   // 위로
-  comfort: 4,
-};
-export const VACATIONS_IN_KOREAN = {
+  "comfort",
+] as const;
+export const VACATION_TYPE_IN_KOREAN = {
   regular: "성과제",
   annual: "연가",
   reward: "포상",
   emergency: "청원",
   comfort: "위로",
 };
-export type VacationsKey = keyof typeof VACATIONS;
+export type VacationTypeKey = (typeof VACATION_TYPE)[number];
 
 export type VacationList = {
-  [vacation in VacationsKey]: Dayjs[];
+  [vacation in VacationTypeKey]: Dayjs[];
 };
