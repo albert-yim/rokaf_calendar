@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import "./App.css";
 import ROKAFCalendar from "./components/ROKAFCalendar";
+import RegularVacationRadioButton from "./components/RegularVacationRadioButton";
+import { RegularVacationKey } from "./types";
 
 export default function App() {
+  const [regularVacation, setRegularVacataion] =
+    useState<RegularVacationKey>("6weeks");
   return (
     <div className="App">
-      <span>{calFirstDate(846)}</span>
+      <RegularVacationRadioButton
+        regularVacation={regularVacation}
+        setRegularVacation={setRegularVacataion}
+      />
       <div /* className={styles.header} */>
         <input />
+        <ROKAFCalendar />
       </div>
-      <ROKAFCalendar />
     </div>
   );
 }

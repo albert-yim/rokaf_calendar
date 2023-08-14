@@ -13,7 +13,7 @@ export default function ROKAFCalendar(props: ROKAFCalendarType) {
     let listData;
     switch (value.date()) {
       case 8:
-        console.log(value);
+        // console.log(value);
         listData = [
           { type: "warning", content: "성과제" },
           // { type: "success", content: "This is usual event." },
