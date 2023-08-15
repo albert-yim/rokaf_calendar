@@ -8,6 +8,7 @@ import { RegularVacationKey, VacationTypeKey } from "./types";
 import VacationRadioButton from "./components/VacationRadioButton";
 
 export default function App() {
+  // vacationCycle instead of regularVacation?
   const [regularVacation, setRegularVacataion] =
     useState<RegularVacationKey>("6weeks");
   const [vacationType, setVacationType] = useState<VacationTypeKey>("regular");
@@ -23,7 +24,11 @@ export default function App() {
       />
       <div /* className={styles.header} */>
         <input />
-        <ROKAFCalendar />
+        <ROKAFCalendar
+          generation={846}
+          currentVacationType={vacationType}
+          regularVacation={regularVacation}
+        />
       </div>
     </div>
   );
