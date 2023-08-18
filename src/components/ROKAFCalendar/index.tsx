@@ -1,40 +1,72 @@
-import { Badge, BadgeProps, Calendar } from "antd";
-import React, { useState } from "react";
+import { Badge, BadgeProps, Calendar, Typography } from "antd";
+import React, { useMemo, useState } from "react";
 import type { Dayjs } from "dayjs";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 import dayjs from "dayjs";
 import styles from "./ROKAFCalendar.module.scss";
 import VacationBlock from "../VacationBlock";
-import { RegularVacationKey, VacationTypeKey } from "../../types";
+import { VacationCycleKey, VacationTypeKey } from "../../types";
+import { GENERATION } from "../../data";
+
 type ROKAFCalendarType = {
   generation: number;
   currentVacationType: VacationTypeKey;
-  regularVacation: RegularVacationKey;
+  vacationCycleDates: Dayjs[];
 };
 export default function ROKAFCalendar({
   generation,
   currentVacationType,
-  regularVacation,
+  vacationCycleDates,
 }: ROKAFCalendarType) {
   const DATE_FORMAT = "YYYY-MM-DD";
   const [value, setValue] = useState(dayjs("2023-08-17"));
   const [vacations, setVacations] = useState<{
     [date: string]: VacationTypeKey;
   }>({});
-
+  const { enlistDate, dischargeDate } = useMemo(
+    () => ({
+      enlistDate: dayjs(GENERATION[generation].enlist),
+      dischargeDate: dayjs(GENERATION[generation].discharge),
+    }),
+    [generation],
+  );
   const dateCellRender = (value: Dayjs) => {
     const sDate = value.format(DATE_FORMAT);
-    if (!vacations?.[sDate]) {
+    const components: JSX.Element[] = [];
+    if (enlistDate.isSame(value)) {
+      components.push(<SpecialDateBlock name="입대" />);
+      // return <SpecialDateBlock name="입대" />;
+    }
+    if (vacationCycleDates.find((date) => date.isSame(value))) {
+      // return <SpecialDateBlock name="왔다 성과제" />;
+      components.push(<SpecialDateBlock name="왔다 성과제" />);
+    }
+    if (dischargeDate.isSame(value)) {
+      components.push(<SpecialDateBlock name="전역" />);
+      // return <SpecialDateBlock name="전역" />;
+    }
+    if (vacations?.[sDate]) {
+      const type = vacations[sDate];
+      // return (
+      //   <VacationBlock
+      //     key={`${sDate}-${type}`}
+      //     type={type}
+      //     position={getPositionOfBlock(value, type)}
+      //   />
+      // );
+
+      components.push(
+        <VacationBlock
+          key={`${sDate}-${type}`}
+          type={type}
+          position={getPositionOfBlock(value, type)}
+        />,
+      );
+    }
+    if (!components.length) {
       return;
     }
-    const type = vacations[sDate];
-    return (
-      <VacationBlock
-        key={`${sDate}-${type}`}
-        type={type}
-        position={getPositionOfBlock(value, type)}
-      />
-    );
+    return <div>{components.map((block) => block)}</div>;
   };
 
   /*
@@ -83,5 +115,22 @@ export default function ROKAFCalendar({
       //   return <div>3</div>;
       // }}
     />
+  );
+}
+
+type SpecialDateBlockType = {
+  name: string;
+};
+function SpecialDateBlock({ name }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "0px",
+        left: "0px",
+      }}
+    >
+      <Typography>{name}</Typography>
+    </div>
   );
 }
