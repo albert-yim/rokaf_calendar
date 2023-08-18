@@ -1,10 +1,10 @@
 import React from "react";
 import { Radio, RadioChangeEvent } from "antd";
-import { RegularVacationKey, REGULAR_VACATION } from "../types";
+import { VacationCycleKey, VACATION_CYCLE } from "../types";
 
 type RegularVacationRadioButtonType = {
-  regularVacation: RegularVacationKey;
-  setRegularVacation: (type: RegularVacationKey) => void;
+  vacationCycle: VacationCycleKey;
+  setVacationCycle: (type: VacationCycleKey) => void;
 };
 
 /*
@@ -13,10 +13,10 @@ type RegularVacationRadioButtonType = {
  * and user can select the vacation period
  */
 export default function RegularVacationRadioButton({
-  regularVacation,
-  setRegularVacation,
+  vacationCycle: regularVacation,
+  setVacationCycle: setRegularVacation,
 }: RegularVacationRadioButtonType) {
-  const options = Object.entries(REGULAR_VACATION).map(([cycle, period]) => ({
+  const options = Object.entries(VACATION_CYCLE).map(([cycle, period]) => ({
     label: cycle,
     value: cycle,
   }));
