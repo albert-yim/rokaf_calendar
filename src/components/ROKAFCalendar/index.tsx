@@ -66,7 +66,7 @@ export default function ROKAFCalendar({
     if (!components.length) {
       return;
     }
-    return <div>{components.map((block) => block)}</div>;
+    return <>{components.map((block) => block)}</>;
   };
 
   /*
