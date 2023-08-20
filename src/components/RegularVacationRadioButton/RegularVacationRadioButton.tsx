@@ -1,6 +1,6 @@
 import React from "react";
 import { Radio, RadioChangeEvent } from "antd";
-import { VacationCycleKey, VACATION_CYCLE } from "../types";
+import { VacationCycleKey, VACATION_CYCLE } from "../../types";
 
 type RegularVacationRadioButtonType = {
   vacationCycle: VacationCycleKey;
